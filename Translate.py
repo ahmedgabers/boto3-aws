@@ -4,13 +4,14 @@ def translate_text(**kwargs):
     client = boto3.client('translate')
     response = client.translate_text(**kwargs)
 
-    print(response['TranslatedText'])
+    print(f"Translation: {response['TranslatedText']}")
 
-kwargs={
-    "Text":"Translate this code to French",
-    "SourceLanguageCode":"en",
-    "TargetLanguageCode":"fr"
-}
+
+text = input("Provide the text you want to translate: ")
+source_language_code = input("Provide the two letter source language code: ")
+target_language_code = input("Provide the two letter target language code: ")
 
 if __name__ == "__main__":
-    translate_text(**kwargs)
+    translate_text(Text=text,
+                   SourceLanguageCode=source_language_code,
+                   TargetLanguageCode=target_language_code)
