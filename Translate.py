@@ -6,6 +6,11 @@ def translate_text(**kwargs):
 
     print(response['TranslatedText'])
 
+kwargs={
+    "Text":"Translate this code to French",
+    "SourceLanguageCode":"en",
+    "TargetLanguageCode":"fr"
+}
 
 if __name__ == "__main__":
-    translate_text(Text='Translate this to french', SourceLanguageCode='en', TargetLanguageCode='fr')
+    translate_text(**kwargs)
