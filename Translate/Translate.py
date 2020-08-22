@@ -1,6 +1,9 @@
 import argparse
 import json
 import boto3
+import logging
+
+logging.basicConfig(filename='translate.log', level=logging.DEBUG)
 
 parser = argparse.ArgumentParser(description="Provides translation  between one source language and another of the same set of languages.")
 
@@ -40,21 +43,23 @@ def input_validation(item):
     TargetLanguageCode = json_input['TargetLanguageCode']
 
     if SourceLanguageCode == TargetLanguageCode:
-        print("The SourceLanguageCode is the same as the TargetLanguageCode - nothing to do")
+        logging.info("The SourceLanguageCode is the same as the TargetLanguageCode - nothing to do")
+        logging.debug(f"The value of SourceLanguageCode is {SourceLanguageCode}")
         return False
     elif SourceLanguageCode not in languages and TargetLanguageCode not in languages:
-        print(f"Neither the SourceLanguageCode ({SourceLanguageCode}) and TargetLanguageCode ({TargetLanguageCode}) are valid - stopping")
+        logging.warning(f"Neither the SourceLanguageCode ({SourceLanguageCode}) and TargetLanguageCode ({TargetLanguageCode}) are valid - stopping")
         return False
     elif SourceLanguageCode not in languages:
-        print(f"The SourceLanguageCode ({SourceLanguageCode}) is not valid - stopping")
+        logging.warning(f"The SourceLanguageCode ({SourceLanguageCode}) is not valid - stopping")
         return False
     elif TargetLanguageCode not in languages:
-        print(f"The TargetLanguageCode ({TargetLanguageCode}) is not valid - stopping")
+        logging.warning(f"The TargetLanguageCode ({TargetLanguageCode}) is not valid - stopping")
         return False
     elif SourceLanguageCode in languages and TargetLanguageCode in languages:
+        logging.info("The SourceLanguageCode and TargetLanguageCode are valid - proceeding")
         return True
     else:
-        print("There is an issue")
+        logging.warning("There is an issue")
         return False
 
 if __name__ == '__main__':
