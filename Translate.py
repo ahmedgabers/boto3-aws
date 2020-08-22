@@ -1,39 +1,33 @@
 import argparse
+import json
 import boto3
 
-parser = argparse.ArgumentParser(description="Provides translation between one source language and another of the same set of languages.")
+parser = argparse.ArgumentParser(description="Provides translation  between one source language and another of the same set of languages.")
 
 parser.add_argument(
-    '--text',
-    dest="Text",
-    type=str,
-    help="The text to translate. The text string can be a maximum of 5,000 bytes long.",
-    required=True
-)
-
-parser.add_argument(
-    '--source-language-code',
-    dest="SourceLanguageCode",
-    type=str,
-    help="The code for the language of the source text",
-    required=True
-)
-
-parser.add_argument(
-    '--target-language-code',
-    dest="TargetLanguageCode",
-    type=str,
-    help="The code for the language of the target text",
+    '--file',
+    dest='filename',
+    help='The path to the input file. The file should be valid json',
     required=True
 )
 
 args = parser.parse_args()
 
+def open_input():
+    with open(args.filename) as file_object:
+        contents = json.load(file_object)
+    return contents['Input']
+
 def translate_text(**kwargs):
     client = boto3.client('translate')
     response = client.translate_text(**kwargs)
+    print(response['TranslatedText'])
 
-    print(f"Translation: {response['TranslatedText']}")
+def translate_loop():
+    input_text = open_input()
+    for item in input_text:
+        translate_text(**item)
 
-if __name__ == "__main__":
-    translate_text(**vars(args))
+if __name__ == '__main__':
+    translate_loop()
+
