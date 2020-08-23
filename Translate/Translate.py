@@ -75,7 +75,8 @@ def input_validation(item):
             return False
     except:
         logging.warning("An unspecified error has occurred ")
-
+        
+        
 if __name__ == '__main__':
     translate_loop()
 
