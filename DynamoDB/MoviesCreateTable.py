@@ -30,5 +30,4 @@ table = dynamodb.create_table(
         'WriteCapacityUnits': 10
     }
 )
-
 print(f"Table status: {table.table_status}")
