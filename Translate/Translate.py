@@ -44,6 +44,7 @@ def translate_loop():
     except:
             logging.warning(f"An error has caused the translation to fail, check the logs for details")
 
+            
 def input_validation(item):
     try:
         languages = ["af","sq","am","ar","az","bn","bs","bg","zh","zh-TW","hr","cs","da","fa-AF",
