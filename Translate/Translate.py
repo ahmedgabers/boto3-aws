@@ -7,7 +7,6 @@ from botocore.exceptions import ClientError
 logging.basicConfig(filename='translate.log', level=logging.DEBUG)
 
 parser = argparse.ArgumentParser(description="Provides translation  between one source language and another of the same set of languages.")
-
 parser.add_argument(
     '--file',
     dest='filename',
