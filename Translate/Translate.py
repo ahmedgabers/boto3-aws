@@ -13,7 +13,6 @@ parser.add_argument(
     help='The path to the input file. The file should be valid json',
     required=True
 )
-
 args = parser.parse_args()
 
 def open_input():
